@@ -619,9 +619,9 @@ PlayerSettings:
     UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: c5cb264e-be43-43bf-a92a-b0731a0e7c8a
+  cloudProjectId: bd0c3630-5c95-4b81-bdea-23dd2c20f5cd
   projectName: COMP328-Team4
-  organizationId: myabc1721
+  organizationId: leegw217
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
