@@ -1,0 +1,10 @@
+클론 : git clone https://github.com/myabcc17/COMP328-Team4
+내용바꾸고 master directory에 들어가서: 
+	git add -A : 몰라 걍 따라해
+	git commit -m "커밋한 내용" : 주석달아서 commit하기
+	->여기서 무슨 이상한 말 뜨면서 안될수도 있을거임
+	이때, git config --global user.email "ID@Git에 가입한 이메일 주소"
+	또는, git config --global user.name "ID" 입력하고나서 commit하면 될거임.
+	git push //올려보내기
+
+	그리고 새로 작성하기전에 git pull하고나서 Update하고 add,commit,push하기
