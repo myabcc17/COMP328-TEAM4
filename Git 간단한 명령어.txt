@@ -1,9 +1,10 @@
-Å¬·Ğ : git clone https://github.com/myabcc17/COMP328-Team4
-³»¿ë¹Ù²Ù°í: git add -A //master directory¿¡ µé¾î°¡¼­
-	 git commit -m "Ä¿¹ÔÇÑ ³»¿ë" //ÁÖ¼®°°Àº ´À³¦
-	->¿©±â¼­ ¹«½¼ ÀÌ»óÇÑ ¸» ¶ß¸é¼­ ¾ÈµÉ¼öµµ ÀÖÀ»°ÅÀÓ
-	 ÀÌ¶§, git config --global user.email "ID@Git¿¡ °¡ÀÔÇÑ ÀÌ¸ŞÀÏ ÁÖ¼Ò"
-	 ¶Ç´Â, git config --global user.name "ID" ÀÔ·ÂÇÏ°í³ª¼­ commitÇÏ¸é µÉ°ÅÀÓ.
-	 git push //¿Ã·Áº¸³»±â
+í´ë¡  : git clone https://github.com/myabcc17/COMP328-Team4
+ë‚´ìš©ë°”ê¾¸ê³  master directoryì— ë“¤ì–´ê°€ì„œ: 
+	git add -A : ëª°ë¼ ê± ë”°ë¼í•´
+	git commit -m "ì»¤ë°‹í•œ ë‚´ìš©" : ì£¼ì„ë‹¬ì•„ì„œ commití•˜ê¸°
+	->ì—¬ê¸°ì„œ ë¬´ìŠ¨ ì´ìƒí•œ ë§ ëœ¨ë©´ì„œ ì•ˆë ìˆ˜ë„ ìˆì„ê±°ì„
+	ì´ë•Œ, git config --global user.email "ID@Gitì— ê°€ì…í•œ ì´ë©”ì¼ ì£¼ì†Œ"
+	ë˜ëŠ”, git config --global user.name "ID" ì…ë ¥í•˜ê³ ë‚˜ì„œ commití•˜ë©´ ë ê±°ì„.
+	git push //ì˜¬ë ¤ë³´ë‚´ê¸°
 
-	±×¸®°í »õ·Î ÀÛ¼ºÇØ¼­ ¹¹ ÇÏ±âÀü¿¡ git pullÇÏ°í³ª¼­ add,commit,pushÇÏ±â
+	ê·¸ë¦¬ê³  ìƒˆë¡œ ì‘ì„±í•˜ê¸°ì „ì— git pullí•˜ê³ ë‚˜ì„œ Updateí•˜ê³  add,commit,pushí•˜ê¸°
