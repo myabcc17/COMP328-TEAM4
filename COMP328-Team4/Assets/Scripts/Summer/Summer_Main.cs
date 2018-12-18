@@ -11,6 +11,11 @@ public class Summer_Main : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(Input.GetKey(KeyCode.RightArrow))
+        {
+            Vector3 temp = transform.position;
+            temp.x += 1;
+            transform.position = temp;
+        }
 	}
 }
