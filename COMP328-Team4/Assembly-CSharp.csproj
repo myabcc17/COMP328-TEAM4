@@ -63,7 +63,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Autumn\Autumn_Main.cs" />
     <Compile Include="Assets\Scripts\Spring\Spring_Main.cs" />
+    <Compile Include="Assets\Scripts\Summer\Summer_ItemManager.cs" />
     <Compile Include="Assets\Scripts\Summer\Summer_Main.cs" />
+    <Compile Include="Assets\Scripts\Summer\Summer_SoundManager.cs" />
     <Compile Include="Assets\Scripts\Summer\Summer_spawnManager.cs" />
     <Compile Include="Assets\Scripts\Summer\Summer_touchButton.cs" />
     <Compile Include="Assets\Scripts\Winter\Winter_Main.cs" />
