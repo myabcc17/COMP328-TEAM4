@@ -12,18 +12,22 @@ public class Autumn_Main : MonoBehaviour
     public GameObject[] fallingLeaves = new GameObject[8]; // 내려오는 잎들
     public Text[] leavesSequence = new Text[8]; // 내려오는 잎들 번호 배열
     private int level; // level=1~level=3
-    private int score; // 점수
+    private float score; // 점수
     private int readyToLevelUp; // 레벨업 준비 변수
+    private int click;
     private float fullTime; // 전체 시간
     private float currentTime; // 타이머 시간
+    private float fever;
     public Text timer;
+    public Text score_text;
 
     void Start()
     {
+        click = 0;
         score = 0; 
         level = 1;
         readyToLevelUp = 1;
-
+        fever = 1.0f;
         currentTime = 60;
         fullTime = 60;
 
@@ -101,14 +105,37 @@ public class Autumn_Main : MonoBehaviour
         int m = ((int)(rand * 10)) % (level * 2);
         leavesSequence[7].text = leafNumber[m] + "";
         fallingLeaves[7].GetComponent<Image>().sprite = leafObj[leafNumber[m]];
-        
-        score++; // 클릭 성공 횟수
-        readyToLevelUp = 1;
+
+        click++;// 연속 클릭 성공 횟수
+        if (click%30 == 0)
+            FeverUp();
+        score += 10*fever; 
+        if(score >= 3000)
+            readyToLevelUp = 1;
     }
-    
+
     public void NotCorrect() // 실패 했을 경우
     {
+        click = 0;
+        fever = 1;
         StartCoroutine("BlockButton"); // 버튼 클릭 잠시 막기
+    }
+
+    public void FeverUp()
+    {
+        if (fever <= 2.0)
+            fever += 0.05f;
+        else if (2.0 < fever && fever <= 3.0)
+            fever += 0.1f;
+        else
+            fever += 0.15f;
+
+        currentTime += 10;
+    }
+
+    public void GameOver()
+    {
+
     }
 
     IEnumerator BlockButton() // 버튼 2초가량 사라지게 만듬
@@ -124,11 +151,12 @@ public class Autumn_Main : MonoBehaviour
 
     IEnumerator LevelUp()
     {
-        yield return new WaitUntil(() => (score == 10 || score == 30) && readyToLevelUp == 1);
+        yield return new WaitUntil(() => (score >= 1000) && readyToLevelUp == 1);
         level++;
         readyToLevelUp = 0;
         LeafSetActive();
-        StartCoroutine("LevelUp");
+        if(level < 3)
+            StartCoroutine("LevelUp");
     }
 
     void Update()
@@ -137,6 +165,10 @@ public class Autumn_Main : MonoBehaviour
         {
             currentTime -= Time.deltaTime;
             timer.text = "Time : " + currentTime.ToString("F");
+            if (currentTime <= 0)
+                GameOver();
         }
+
+        score_text.text = "Score : " + score.ToString("F");
     }
 }
