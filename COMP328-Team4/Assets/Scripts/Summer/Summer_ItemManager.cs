@@ -11,16 +11,18 @@ public class Summer_ItemManager : MonoBehaviour {
     public bool touch_boostitem_state = false;
     // Use this for initialization
     void Start () {
+        spawnManager = GameObject.Find("spawnManager").GetComponent<Summer_spawnManager>();
 
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         spawnManager = GameObject.Find("spawnManager").GetComponent<Summer_spawnManager>();
 
         if (touch_lockitem_state)
         {
-            if(Time.time - lock_capture_time >= 5f)
+            if (Time.time - lock_capture_time >= 5f)
             {
                 touch_lockitem_state = false;
                 lock_capture_time = Time.time;
@@ -30,7 +32,7 @@ public class Summer_ItemManager : MonoBehaviour {
                 spawnManager.set_enableSpawn_Boost_state(true);
             }
         }
-        if(touch_boostitem_state)
+        if (touch_boostitem_state)
         {
             if (!touch_lockitem_state)
             {
@@ -50,7 +52,7 @@ public class Summer_ItemManager : MonoBehaviour {
                 boost_capture_time = Time.time;
             }
         }
-	}
+    }
 
     public void touch_lockitem()
     {

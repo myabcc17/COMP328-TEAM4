@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Summer_touchButton : MonoBehaviour {
     Summer_spawnManager spawn_check;
-    Summer_Main increment_time;
+    Summer_Main Summer_Main;
     Summer_SoundManager sound;
     Summer_ItemManager ItemManager;
 
@@ -15,7 +15,7 @@ public class Summer_touchButton : MonoBehaviour {
     // Use this for initialization
     void Start () {
         spawn_check = GameObject.Find("spawnManager").GetComponent<Summer_spawnManager>();
-        increment_time = GameObject.Find("GameHandler").GetComponent<Summer_Main>();
+        Summer_Main = GameObject.Find("GameHandler").GetComponent<Summer_Main>();
         sound = GameObject.Find("SoundManager").GetComponent<Summer_SoundManager>();
         ItemManager = GameObject.Find("ItemManager").GetComponent<Summer_ItemManager>();
     }
@@ -33,19 +33,16 @@ public class Summer_touchButton : MonoBehaviour {
             spawn_check.minus_button_touch_count();
             Destroy(gameObject);
             sound.Play_Touch_Sound();
-<<<<<<< HEAD
             Summer_Main.Increment_x();
             Summer_Main.Add_Score();
-            if (ItemManager.get_boost_state() || ItemManager.get_boost_state())
-=======
-            increment_time.Increment_time();
-            if (ItemManager.get_boost_state())
->>>>>>> 0be97f21cce4f03c9e112a5dc745a64bafd9cb30
+
+            if (!ItemManager.get_lock_state() && spawn_check.get_button_count() < 1)
                 spawn_check.set_Spawn(true);
+            else if (ItemManager.get_boost_state() && spawn_check.get_button_count() >= 3)
+                spawn_check.set_Spawn(false);
             else if (ItemManager.get_lock_state())
                 spawn_check.set_Spawn(false);
-            else
-                spawn_check.set_Spawn(true);
+
         }
         else if(name.Equals("boost(Clone)"))
         {
@@ -55,7 +52,6 @@ public class Summer_touchButton : MonoBehaviour {
             ItemManager.set_boost_state(true);
             check_boost = true;
             ItemManager.touch_boostitem();
-
         }
         else if(name.Equals("trap(Clone)"))
         {
@@ -64,12 +60,12 @@ public class Summer_touchButton : MonoBehaviour {
             sound.Play_Locked_Sound();
             ItemManager.set_lock_state(true);
             check_lock = true;
-            ItemManager.touch_lockitem(); for (int i = 0; i < 3; i++)
+            ItemManager.touch_lockitem();
+            for (int i = 0; i < 3; i++)
             {
                 Destroy(GameObject.Find("touch_button(Clone)"));
                 spawn_check.minus_button_touch_count();
             }
-            spawn_check.button_count = 0;
             Destroy(gameObject);
         }
 
