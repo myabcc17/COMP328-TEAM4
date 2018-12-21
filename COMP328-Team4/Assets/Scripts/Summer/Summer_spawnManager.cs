@@ -147,8 +147,8 @@ public class Summer_spawnManager : MonoBehaviour {
         float lock_random = Random.Range(4f, 6f);
         float boost_random = Random.Range(4f, 6f);
 
-        InvokeRepeating("Spawn_TouchButton", 0, 0.3f);
-        InvokeRepeating("Spawn_Lock_Item", 5, lock_random);
+        InvokeRepeating("Spawn_TouchButton", 1, 0.3f);
+        //InvokeRepeating("Spawn_Lock_Item", 5, lock_random);
         InvokeRepeating("Spawn_Boost_Item", 3, boost_random);
     }
 	
@@ -188,6 +188,7 @@ public class Summer_spawnManager : MonoBehaviour {
             StopCoroutine("WaitSecond_spawn_lock");
         }
     }
+<<<<<<< HEAD
 
     public void Stop_All()
     {
@@ -205,5 +206,7 @@ public class Summer_spawnManager : MonoBehaviour {
         Destroy(touch_button);
         button_count = 0;
     }
+=======
+>>>>>>> 0be97f21cce4f03c9e112a5dc745a64bafd9cb30
 }
 

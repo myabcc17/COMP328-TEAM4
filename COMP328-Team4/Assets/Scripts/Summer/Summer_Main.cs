@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Summer_Main : MonoBehaviour {
     public Image Timer_bar;
+<<<<<<< HEAD
     public int score = 0;
     private Text real_score;
     private Text final_score;
@@ -26,10 +27,18 @@ public class Summer_Main : MonoBehaviour {
 
         Result_Panel = GameObject.Find("ResultPanel");
         Result_Panel.SetActive(false);
+=======
+    
+    public float var;
+	// Use this for initialization
+	void Start () {
+
+>>>>>>> 0be97f21cce4f03c9e112a5dc745a64bafd9cb30
 	}
 	
 	// Update is called once per frame
 	void Update () {
+<<<<<<< HEAD
         real_score.text = "Score : " + score;
 
         distance = Swimming_man.transform.position.x - Shark.transform.position.x;
@@ -47,6 +56,13 @@ public class Summer_Main : MonoBehaviour {
             Destroy(Swimming_man);
             Summer_SpawnManager.SetActive(false);
             print_result();
+=======
+        Timer_bar.fillAmount -= Time.deltaTime / 60;
+        var = Time.time;
+        if(Timer_bar.fillAmount <= 0f)
+        {
+
+>>>>>>> 0be97f21cce4f03c9e112a5dc745a64bafd9cb30
         }
 	}
 
@@ -56,18 +72,4 @@ public class Summer_Main : MonoBehaviour {
         temp.x += 0.1f;
         Swimming_man.transform.position = temp;
     }
-
-    public void Add_Score()
-    {
-        score += 10;
-    }
-
-    private void print_result()
-    {
-        Result_Panel.SetActive(true);
-        final_score = GameObject.Find("Final_Score").GetComponent<Text>();
-        final_score.text = "Final_Score : " + score;
-    }
-
-
 }
