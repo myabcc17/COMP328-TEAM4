@@ -20,11 +20,12 @@ public class Autumn_Main : MonoBehaviour
     private float fever;
     public Text timer;
     public Text score_text;
+    public Text combo_text;
 
     void Start()
     {
         click = 0;
-        score = 0; 
+        score = 0;
         level = 1;
         readyToLevelUp = 1;
         fever = 1.0f;
@@ -87,7 +88,7 @@ public class Autumn_Main : MonoBehaviour
                 n = 1;
 
             fallingLeaves[i].GetComponent<Image>().sprite = leafObj[leafNumber[n]];
-            leavesSequence[i].text = leafNumber[n]+""; // 내려온 leaves 순서들을 저장해놓기
+            leavesSequence[i].text = leafNumber[n] + ""; // 내려온 leaves 순서들을 저장해놓기
         }
     }
 
@@ -107,10 +108,10 @@ public class Autumn_Main : MonoBehaviour
         fallingLeaves[7].GetComponent<Image>().sprite = leafObj[leafNumber[m]];
 
         click++;// 연속 클릭 성공 횟수
-        if (click%30 == 0)
+        if (click % 50 == 0)
             FeverUp();
-        score += 10*fever; 
-        if(score >= 3000)
+        score += 10 * fever;
+        if (score >= 1500)
             readyToLevelUp = 1;
     }
 
@@ -118,6 +119,8 @@ public class Autumn_Main : MonoBehaviour
     {
         click = 0;
         fever = 1;
+        combo_text.color = new Color(0.0f / 255.0f, 0.0f / 255.0f, 0.0f / 255.0f); //글씨 색깔 검은색, 크기 원래 크기
+        combo_text.fontSize = 100;
         StartCoroutine("BlockButton"); // 버튼 클릭 잠시 막기
     }
 
@@ -131,6 +134,12 @@ public class Autumn_Main : MonoBehaviour
             fever += 0.15f;
 
         currentTime += 10;
+
+        combo_text.fontSize += 25; //Fever 들어가면 콤보 글자 크기 25증가, 색깔 조금씩 바꾸기
+        if (100 * fever < 255)
+            combo_text.color = new Color(255.0f / 255.0f, (100 * fever) / 255.0f, 100.0f / 255.0f);
+        else
+            combo_text.color = new Color(255.0f / 255.0f, 255.0f / 255.0f, 100.0f / 255.0f);
     }
 
     public void GameOver()
@@ -145,23 +154,23 @@ public class Autumn_Main : MonoBehaviour
 
         yield return new WaitForSeconds(2.0f);
 
-        for (int i = 0; i < (level*2); i++)
+        for (int i = 0; i < (level * 2); i++)
             leaves[i].SetActive(true);
     }
 
     IEnumerator LevelUp()
     {
-        yield return new WaitUntil(() => (score >= 1000) && readyToLevelUp == 1);
+        yield return new WaitUntil(() => (score >= 750) && readyToLevelUp == 1);
         level++;
         readyToLevelUp = 0;
         LeafSetActive();
-        if(level < 3)
+        if (level < 3)
             StartCoroutine("LevelUp");
     }
 
     void Update()
     {
-        if(currentTime > 0)
+        if (currentTime > 0)
         {
             currentTime -= Time.deltaTime;
             timer.text = "Time : " + currentTime.ToString("F");
@@ -170,5 +179,6 @@ public class Autumn_Main : MonoBehaviour
         }
 
         score_text.text = "Score : " + score.ToString("F");
+        combo_text.text = "" + click;
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Summer_touchButton : MonoBehaviour {
     Summer_spawnManager spawn_check;
-    Summer_Main Summer_Main;
+    Summer_Main increment_time;
     Summer_SoundManager sound;
     Summer_ItemManager ItemManager;
 
@@ -15,7 +15,7 @@ public class Summer_touchButton : MonoBehaviour {
     // Use this for initialization
     void Start () {
         spawn_check = GameObject.Find("spawnManager").GetComponent<Summer_spawnManager>();
-        Summer_Main = GameObject.Find("GameHandler").GetComponent<Summer_Main>();
+        increment_time = GameObject.Find("GameHandler").GetComponent<Summer_Main>();
         sound = GameObject.Find("SoundManager").GetComponent<Summer_SoundManager>();
         ItemManager = GameObject.Find("ItemManager").GetComponent<Summer_ItemManager>();
     }
@@ -33,8 +33,7 @@ public class Summer_touchButton : MonoBehaviour {
             spawn_check.minus_button_touch_count();
             Destroy(gameObject);
             sound.Play_Touch_Sound();
-            Summer_Main.Increment_time();
-            Summer_Main.Add_Score();
+            increment_time.Increment_time();
             if (ItemManager.get_boost_state())
                 spawn_check.set_Spawn(true);
             else if (!ItemManager.get_boost_state() && spawn_check.get_button_count() >= 1)
