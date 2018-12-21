@@ -48,6 +48,7 @@ public class Summer_touchButton : MonoBehaviour {
         {
             Destroy(gameObject);
             spawn_check.set_Boost_state(true);
+            sound.Play_Boost_Sound();
             spawn_check.set_Spawn(true);
             ItemManager.set_boost_state(true);
             check_boost = true;
