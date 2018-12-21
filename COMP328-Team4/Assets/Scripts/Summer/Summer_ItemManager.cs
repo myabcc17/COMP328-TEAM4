@@ -11,31 +11,43 @@ public class Summer_ItemManager : MonoBehaviour {
     public bool touch_boostitem_state = false;
     // Use this for initialization
     void Start () {
-        spawnManager = GameObject.Find("spawnManager").GetComponent<Summer_spawnManager>();
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(touch_lockitem_state)
+        spawnManager = GameObject.Find("spawnManager").GetComponent<Summer_spawnManager>();
+
+        if (touch_lockitem_state)
         {
-            if(Time.time - lock_capture_time >= 1.5f)
+            if(Time.time - lock_capture_time >= 5f)
             {
-                spawnManager.set_Spawn(true);
-                spawnManager.set_Locked_state(false);
-                spawnManager.set_enableSpawn_Locked_state(true);
                 touch_lockitem_state = false;
+                lock_capture_time = Time.time;
+                spawnManager.set_Locked_state(false);
+                spawnManager.set_Spawn(true);
+                spawnManager.set_enableSpawn_Locked_state(true);
+                spawnManager.set_enableSpawn_Boost_state(true);
             }
         }
         if(touch_boostitem_state)
         {
-            if (Time.time - boost_capture_time >= 3f)
+            if (!touch_lockitem_state)
             {
-                //spawnManager.clear_button_count();
-                spawnManager.set_Boost_state(false);
-                spawnManager.set_enableSpawn_Boost_state(true);
-                //Destroy(GameObject.Find("touch_button(Clone)"));
+                if (Time.time - boost_capture_time >= 3f)
+                {
+                    touch_boostitem_state = false;
+                    boost_capture_time = Time.time;
+                    spawnManager.set_Boost_state(false);
+                    spawnManager.set_enableSpawn_Boost_state(true);
+                }
+            }
+            else
+            {
                 touch_boostitem_state = false;
+                spawnManager.set_enableSpawn_Boost_state(false);
+                spawnManager.set_Boost_state(false);
+                boost_capture_time = Time.time;
             }
         }
 	}
