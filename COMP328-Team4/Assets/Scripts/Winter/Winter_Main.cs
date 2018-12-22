@@ -14,13 +14,15 @@ public class Winter_Main : MonoBehaviour
     public Text[] ArrowSequence = new Text[4];
     public int count = 0;
     public AudioSource BGM;
+    public AudioSource clearsound;
+    public AudioSource XSound;
     public Text CountText;
     public int buttonCount = 0;
     // Use this for initialization
     void Start()
     {
         Fish.fillAmount = 0;
-        CountText.text += count.ToString();
+        CountText.text = count.ToString();
         BGM.Play();
         RandomArrows();
     }
@@ -61,6 +63,7 @@ public class Winter_Main : MonoBehaviour
             Increment_fish();
             AddFish();
             RandomArrows();
+            clearsound.Play();
         }
         else
         {
@@ -70,20 +73,21 @@ public class Winter_Main : MonoBehaviour
     }
     public void ButtonCheck(Text text)
     {
-        if (text.text == ArrowSequence[count].text)
-            Correct(count);
+        if (text.text == ArrowSequence[buttonCount].text)
+            Correct(buttonCount++);
         else
         {
             InCorrect();
-            count = 0;
+            buttonCount = 0;
         }
-        count++;
-        if (count == 4)
-            count = 0;
+        if (buttonCount == 4)
+            buttonCount = 0;
     }
     public void InCorrect()
     {
+        XSound.Play();
         ArrowSetDeactivate();
+        Fish.fillAmount = 0;
         RandomArrows();
     }
     void ArrowSetActive()
@@ -108,6 +112,7 @@ public class Winter_Main : MonoBehaviour
         StartCoroutine(FadeOut());
         Fish.fillAmount = 0;
         count++;
+        CountText.text = count.ToString();
         //text.color = new Color(50, 50, 50, 0);
     }
     IEnumerator FadeOut()
