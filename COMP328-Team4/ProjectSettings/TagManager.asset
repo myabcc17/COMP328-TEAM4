@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - player
+  - CB
   layers:
   - Default
   - TransparentFX
@@ -40,4 +42,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Back
+    uniqueID: 2658310061
+    locked: 0
+  - name: Middel
+    uniqueID: 3550241381
+    locked: 0
+  - name: Front
+    uniqueID: 3101690181
+    locked: 0
+  - name: Result
+    uniqueID: 2980275877
     locked: 0

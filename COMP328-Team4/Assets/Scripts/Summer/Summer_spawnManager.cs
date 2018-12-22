@@ -45,7 +45,8 @@ public class Summer_spawnManager : MonoBehaviour {
     }
     public void minus_button_touch_count()
     {
-        button_count -= 1;
+        if(button_count > 0)
+            button_count -= 1;
     }
     public void clear_button_count()
     {
@@ -60,25 +61,35 @@ public class Summer_spawnManager : MonoBehaviour {
         float randomX = Random.Range(x_min, x_max);
         float randomY = Random.Range(y_min, y_max);
 
-        if (enableSpawn)
+        if (!Locked)
         {
-            // Boost 모드아닐때는 버튼 1개만 나타남.
-            if (!enableBoost)
+            if (enableSpawn)
             {
-                GameObject Touch_Button = (GameObject)Instantiate(touch_button, new Vector3(randomX, randomY, 0f), Quaternion.identity);
-                enableSpawn = false;
-                button_count += 1;
-
-            }
-            // Boost 모드일때는 버튼 2개 나타남.
-            else
-            {
-                if (button_count < 3)
+                // Boost 모드아닐때는 버튼 1개만 나타남.
+                if (!enableBoost)
                 {
-                    GameObject Touch_Button = (GameObject)Instantiate(touch_button, new Vector3(randomX, randomY, 0f), Quaternion.identity);
-                    button_count += 1;
-                    if (button_count == 3)
+                    if (button_count < 1)
+                    {
+                        GameObject Touch_Button = (GameObject)Instantiate(touch_button, new Vector3(randomX, randomY, 0f), Quaternion.identity);
                         enableSpawn = false;
+                        button_count += 1;
+                    }
+                    else
+                    {
+                        enableBoost = false;
+                    }
+
+                }
+                // Boost 모드일때는 버튼 2개 나타남.
+                else
+                {
+                    if (button_count < 3)
+                    {
+                        GameObject Touch_Button = (GameObject)Instantiate(touch_button, new Vector3(randomX, randomY, 0f), Quaternion.identity);
+                        button_count += 1;
+                        if (button_count == 3)
+                            enableSpawn = false;
+                    }
                 }
             }
         }
@@ -136,7 +147,7 @@ public class Summer_spawnManager : MonoBehaviour {
         float boost_random = Random.Range(4f, 6f);
 
         InvokeRepeating("Spawn_TouchButton", 1, 0.3f);
-        //InvokeRepeating("Spawn_Lock_Item", 5, lock_random);
+        InvokeRepeating("Spawn_Lock_Item", 5, lock_random);
         InvokeRepeating("Spawn_Boost_Item", 3, boost_random);
     }
 	
@@ -175,6 +186,22 @@ public class Summer_spawnManager : MonoBehaviour {
         {
             StopCoroutine("WaitSecond_spawn_lock");
         }
+    }
+
+    public void Stop_All()
+    {
+        CancelInvoke();
+        StopCoroutine("WaitSecond_spawn_lock");
+        StopCoroutine("WaitSecond_boost_lock");
+        Destroy(GameObject.Find("touch_button(Clone)"));
+        Destroy(GameObject.Find("boost(Clone)"));
+        Destroy(GameObject.Find("trap(Clone)"));
+
+    }
+    public void Delete_Touch_Button()
+    {
+        Destroy(touch_button);
+        button_count = 0;
     }
 }
 

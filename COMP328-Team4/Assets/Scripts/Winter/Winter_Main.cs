@@ -18,6 +18,8 @@ public class Winter_Main : MonoBehaviour
     public AudioSource XSound;
     public Text CountText;
     public int buttonCount = 0;
+    public GameObject resultPanel;
+    public Text FinalScore;
     // Use this for initialization
     void Start()
     {
@@ -25,19 +27,21 @@ public class Winter_Main : MonoBehaviour
         CountText.text = count.ToString();
         BGM.Play();
         RandomArrows();
+        resultPanel.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-
         Timer_bar.fillAmount -= Time.deltaTime / 60;
         var = Time.time;
         if (Timer_bar.fillAmount <= 0f)
         {
-
+            FinalScore.text = "붕어빵 수익 : " + count * 500;
+            resultPanel.SetActive(true);
         }
     }
+
     public void RandomArrows()
     {
         float rand;
@@ -55,6 +59,20 @@ public class Winter_Main : MonoBehaviour
         }
         ArrowSetActive();
     }
+
+    public void ButtonCheck(Text text)
+    {
+        if (text.text == ArrowSequence[buttonCount].text)
+            Correct(buttonCount++);
+        else
+        {
+            InCorrect();
+            buttonCount = 0;
+        }
+        if (buttonCount == 4)
+            buttonCount = 0;
+    }
+
     public void Correct(int n)
     {
         if (n == 3)
@@ -71,18 +89,7 @@ public class Winter_Main : MonoBehaviour
             Arrows[n].SetActive(false);
         }
     }
-    public void ButtonCheck(Text text)
-    {
-        if (text.text == ArrowSequence[buttonCount].text)
-            Correct(buttonCount++);
-        else
-        {
-            InCorrect();
-            buttonCount = 0;
-        }
-        if (buttonCount == 4)
-            buttonCount = 0;
-    }
+
     public void InCorrect()
     {
         XSound.Play();
@@ -90,16 +97,19 @@ public class Winter_Main : MonoBehaviour
         Fish.fillAmount = 0;
         RandomArrows();
     }
+
     void ArrowSetActive()
     {
         for (int i = 0; i < 4; i++)
             Arrows[i].SetActive(true);
     }
+
     void ArrowSetDeactivate()
     {
         for (int i = 0; i < 4; i++)
             Arrows[i].SetActive(false);
     }
+
     public void Increment_fish()
     {
         Fish.fillAmount += (float)0.25;
@@ -115,6 +125,7 @@ public class Winter_Main : MonoBehaviour
         CountText.text = count.ToString();
         //text.color = new Color(50, 50, 50, 0);
     }
+
     IEnumerator FadeOut()
     {
         float fadeOutTime = 1f;

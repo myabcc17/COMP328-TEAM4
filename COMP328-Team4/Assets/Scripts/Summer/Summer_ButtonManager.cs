@@ -7,10 +7,10 @@ public class Summer_ButtonManager : MonoBehaviour {
 
     public void OnClick_Regame()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("Summer_Main");
     }
     public void OnClick_Exit()
     {
-
+        SceneManager.LoadScene("게임선택");
     }
 }

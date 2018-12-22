@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class Autumn_Main : MonoBehaviour
 {
+    public Autumn_SoundController sound; // 사운드
     public Sprite[] leafObj = new Sprite[6]; // 나뭇잎 이미지 파일 6개 저장
     public GameObject[] leaves = new GameObject[6]; // 버튼 6개 = 나뭇잎 버튼
     private int[] leafNumber = new int[6]; // 잎 랜덤 저장 배열
@@ -21,6 +23,7 @@ public class Autumn_Main : MonoBehaviour
     public Text timer;
     public Text score_text;
     public Text combo_text;
+    public GameObject result;
 
     void Start()
     {
@@ -36,6 +39,8 @@ public class Autumn_Main : MonoBehaviour
         LeafSetActive();
         SetLeavesAligned();
         StartCoroutine("LevelUp");
+        result = GameObject.Find("ResultPanel");
+        result.SetActive(false);
     }
 
     void RandomLeaves() // 버튼마다 잎 랜덤으로 배정하기
@@ -94,6 +99,7 @@ public class Autumn_Main : MonoBehaviour
 
     public void Correct() // 클릭을 맞췄을 경우
     {
+        sound.Play_Touch_Sound();
         for (int i = 0; i < 7; i++) // 맞출경우 8개중 2~8번째꺼를 한칸씩 내려서 1~7번째 잎들로 맞춤
         {
             leavesSequence[i].text = leavesSequence[i + 1].text;
@@ -117,15 +123,17 @@ public class Autumn_Main : MonoBehaviour
 
     public void NotCorrect() // 실패 했을 경우
     {
+        sound.Play_Fail_Sound();
         click = 0;
         fever = 1;
         combo_text.color = new Color(0.0f / 255.0f, 0.0f / 255.0f, 0.0f / 255.0f); //글씨 색깔 검은색, 크기 원래 크기
-        combo_text.fontSize = 100;
+        combo_text.fontSize = 50;
         StartCoroutine("BlockButton"); // 버튼 클릭 잠시 막기
     }
 
     public void FeverUp()
     {
+        sound.Play_Fever_Sound();
         if (fever <= 2.0)
             fever += 0.05f;
         else if (2.0 < fever && fever <= 3.0)
@@ -135,7 +143,7 @@ public class Autumn_Main : MonoBehaviour
 
         currentTime += 10;
 
-        combo_text.fontSize += 25; //Fever 들어가면 콤보 글자 크기 25증가, 색깔 조금씩 바꾸기
+        combo_text.fontSize += 10; //Fever 들어가면 콤보 글자 크기 10증가, 색깔 조금씩 바꾸기
         if (100 * fever < 255)
             combo_text.color = new Color(255.0f / 255.0f, (100 * fever) / 255.0f, 100.0f / 255.0f);
         else
@@ -144,15 +152,20 @@ public class Autumn_Main : MonoBehaviour
 
     public void GameOver()
     {
-
+        sound.Play_Finish_Sound();
+        result.SetActive(true);
+        for (int i = 0; i < 6; i++)
+            leaves[i].SetActive(false);
+        GameObject.Find("Final_Score").GetComponent<Text>().text = "Score : " + (int)score;
+        
     }
 
-    IEnumerator BlockButton() // 버튼 2초가량 사라지게 만듬
+    IEnumerator BlockButton() // 버튼 3초가량 사라지게 만듬
     {
         for (int i = 0; i < 6; i++)
             leaves[i].SetActive(false);
 
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(3.0f);
 
         for (int i = 0; i < (level * 2); i++)
             leaves[i].SetActive(true);
@@ -174,11 +187,15 @@ public class Autumn_Main : MonoBehaviour
         {
             currentTime -= Time.deltaTime;
             timer.text = "Time : " + currentTime.ToString("F");
-            if (currentTime <= 0)
-                GameOver();
+        }
+        else
+        {
+            currentTime = 0;
+            timer.text = "Time : " + currentTime.ToString("F");
+            GameOver();
         }
 
         score_text.text = "Score : " + score.ToString("F");
-        combo_text.text = "" + click;
+        combo_text.text = click + "Combo";
     }
 }

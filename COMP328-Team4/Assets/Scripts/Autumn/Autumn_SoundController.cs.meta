@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1014967a11b46ab42a96283cdffdf8ff
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - touch_sound: {fileID: 8300000, guid: bb4dde6d6d6234e46936e330d0553aee, type: 3}
+  - bgm_sound: {fileID: 8300000, guid: 4cb014e8ca354ff49b2af735f2dea27e, type: 3}
+  - fail_sound: {fileID: 8300000, guid: 3fd76490384222b49bdf3663f59602a5, type: 3}
+  - finish_sound: {fileID: 8300000, guid: 6b8692cf8ab5daa4f973f4ecf2093f8c, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

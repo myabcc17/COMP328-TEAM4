@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Winter_ButtonController : MonoBehaviour
 {
@@ -13,5 +14,15 @@ public class Winter_ButtonController : MonoBehaviour
     {
         touchSound.Play();
         main.ButtonCheck(myText);
+    }
+
+    public void onClickBack()
+    {
+        SceneManager.LoadScene("게임선택");
+    }
+
+    public void onClickReplay()
+    {
+        SceneManager.LoadScene("Winter_Main");
     }
 }
